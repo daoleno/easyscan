@@ -1,0 +1,35 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model feeds {
+  id            String  @id
+  title         String?
+  description   String?
+  link          String?
+  author        String?
+  published     String?
+  updated       String?
+  category      String?
+  content_type  String?
+  content_value String?
+  comments      String?
+  source        String?
+  contributors  String?
+  rights        String?
+  attachments   String?
+}
+
+// https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search#postgresql-1
+// CREATE EXTENSION pg_trgm;
+// CREATE EXTENSION btree_gin;
+// CREATE INDEX feeds_title_index ON feeds USING GIN (to_tsvector('english', title));
+// CREATE INDEX feeds_description_index ON feeds USING GIN (to_tsvector('english', description));
+// CREATE INDEX feeds_content_value_index ON feeds USING GIN (to_tsvector('english', content_value));
+// CREATE INDEX feeds_author_index ON feeds USING GIN (to_tsvector('english', author));
