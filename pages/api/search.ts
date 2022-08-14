@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
-import { feeds } from "@prisma/client";
+import type { SearchResult } from "@/types/common";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void | NextApiResponse<Array<feeds> | (feeds | null)>> {
+): Promise<void | NextApiResponse<SearchResult>> {
   let { q, cursor } = req.query;
   if (!q) {
     res.status(400).send("Missing query param");

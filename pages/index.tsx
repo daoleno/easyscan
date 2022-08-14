@@ -1,28 +1,23 @@
+import Layout from "@/components/Layout";
 import type { NextPage } from "next";
+import Router from "next/router";
+import { useState } from "react";
 
 const Home: NextPage = () => {
+  const [search, setSearch] = useState("");
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    Router.push({
+      pathname: "/search",
+      query: { q: search },
+    });
+  };
   return (
-    <div>
-      <div className="relative py-6 z-10">
-        <nav className="mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 max-w-screen-lg lg:p-0">
-          <a className="flex items-center" href="/">
-            <img className="h-10 w-auto sm:h-12 my-2" src="/logo.svg" alt="" />
-          </a>
-
-          <div className="hidden lg:flex md:ml-10 items-end">
-            <a
-              href="https://github.com/daoleno/easyscan"
-              className="font-medium py-2 px-3 rounded-lg border-2 border-gray-700 bg-transparent text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-gray-50 transition duration-150 ease-in-out"
-            >
-              Github
-            </a>
-          </div>
-        </nav>
-      </div>
-      <div className="mb-20 py-7">
+    <Layout>
+      <div className="mb-20 py-7 mt-7">
         <div className="max-w-xl text-center mx-auto">
           <div className="w-2/3 mx-auto my-10">
-            <form>
+            <form onSubmit={handleSubmit}>
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -53,6 +48,7 @@ const Home: NextPage = () => {
                   className="block p-4 pl-10 w-full text-sm text-gray-900 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                   placeholder="Search in web3"
                   required
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
             </form>
@@ -70,7 +66,7 @@ const Home: NextPage = () => {
           </p>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
