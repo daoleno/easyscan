@@ -81,6 +81,11 @@ export default async function handler(
       },
     });
 
+    if (results.length === 0) {
+      res.status(404).send(results);
+      return;
+    }
+
     const lastRecordInResults = results[results.length - 1];
     const next = lastRecordInResults.id;
 

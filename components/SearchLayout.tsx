@@ -1,7 +1,19 @@
 import { WithChildren } from "@/types/common";
 import Image from "next/image";
+import Router from "next/router";
+import { useState } from "react";
 
 export default function SearchLayout({ children }: WithChildren) {
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    Router.push({
+      pathname: "/search",
+      query: { q: search },
+    });
+  };
+
   return (
     <div className="z-10">
       <nav className="my-10 flex items-stretch justify-between px-4 sm:px-6 md:px-8">
@@ -9,7 +21,7 @@ export default function SearchLayout({ children }: WithChildren) {
           <a href="/" className="my-1">
             <Image src="/logo.svg" alt="" width={48} height={48} />
           </a>
-          <form className="ml-7 w-full">
+          <form className="ml-7 w-full" onSubmit={handleSubmit}>
             <label
               htmlFor="default-search"
               className="text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -37,9 +49,10 @@ export default function SearchLayout({ children }: WithChildren) {
               <input
                 type="search"
                 id="default-search"
-                className="block p-4 pl-10 w-full text-sm text-gray-900 rounded-xl border border-gray-400 focus:ring-blue-500 focus:border-blue-500 "
+                className="block p-4 pl-10 w-full text-sm text-gray-900 rounded-xl outline-none border border-gray-400 focus:ring-gray-700 focus:border-gray-700"
                 placeholder="Search in web3"
                 required
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </form>

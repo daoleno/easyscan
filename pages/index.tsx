@@ -1,10 +1,12 @@
 import Layout from "@/components/Layout";
 import type { NextPage } from "next";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
+  const [randomNumber, setRandomNumber] = useState(1);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     Router.push({
@@ -12,6 +14,11 @@ const Home: NextPage = () => {
       query: { q: search },
     });
   };
+
+  useEffect(() => {
+    setRandomNumber(Math.floor(Math.random() * 25 + 1));
+  }, []);
+
   return (
     <Layout>
       <div className="mb-20 py-7 mt-7">
@@ -45,18 +52,19 @@ const Home: NextPage = () => {
                 <input
                   type="search"
                   id="default-search"
-                  className="block p-4 pl-10 w-full text-sm text-gray-900 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                  className="block p-4 pl-10 w-full text-sm text-gray-900 rounded-xl outline-none border border-gray-400 focus:ring-gray-700 focus:border-gray-700"
                   placeholder="Search in web3"
                   required
                   onChange={(e) => setSearch(e.target.value)}
+                  autoFocus
                 />
               </div>
             </form>
           </div>
           <img
             className="rounded-3xl"
-            src={`/animals/${Math.floor(Math.random() * 25)}.svg`}
-            alt="Random image"
+            src={`/animals/${randomNumber}.svg`}
+            alt="https://drawkit.com/product/animal-pets-illustrations"
           />
           <h1 className="text-3xl font-extrabold sm:text-5xl mt-8">
             Easy Scan
