@@ -70,7 +70,7 @@ const Home: NextPage = () => {
             Easy Scan
           </h1>
           <p className="mt-4 sm:leading-relaxed sm:text-xl">
-            An easy way to scan crypto information.
+            Search for web3 information easily
           </p>
         </div>
       </div>
